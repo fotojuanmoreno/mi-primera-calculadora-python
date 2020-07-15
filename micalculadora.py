@@ -1,5 +1,6 @@
 from tkinter import *
 import re
+import math
 
 
 class App:
@@ -112,6 +113,15 @@ class App:
 			self.operacion = "cuadrado"
 			preparacuentas()
 
+		def raiz(num):
+			print("raiz")
+			self.operacion = "raiz"
+			num1 = float(displayValue.get())
+			self.resultado = math.sqrt(num1)
+			print(str(self.resultado) + "prueba")
+			displayValue.set(self.resultado)
+
+
 		def resultado():
 			elementos.append(float(displayValue.get()))
 			calcularesultado()
@@ -141,7 +151,7 @@ class App:
 		button_cuadrado = Button(body, text = "xˣ", width = 4, height = 1, font = "Helvetica", command = lambda:cuadrado(displayValue.get()))
 		button_cuadrado.grid (row = 1, column = 1)
 
-		button_raiz = Button(body, text = "√", width = 4, height = 1, font = "Helvetica")
+		button_raiz = Button(body, text = "√", width = 4, height = 1, font = "Helvetica", command = lambda:raiz(displayValue.get()))
 		button_raiz.grid (row = 1, column = 2)
 
 		button_c = Button(body, text = "÷", width = 4, height = 1, font = "Helvetica", command = lambda:divide(displayValue.get()))
