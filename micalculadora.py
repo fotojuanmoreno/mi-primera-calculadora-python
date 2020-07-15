@@ -69,7 +69,10 @@ class App:
 			elif elementos[1] == "multiplica":
 				self.resultado = cifra1*cifra2
 			elif elementos[1] == "divide":
-				self.resultado = cifra1/cifra2
+				try:
+					self.resultado = cifra1/cifra2
+				except ZeroDivisionError:
+					print("division cero")
 			elif elementos[1] == "cuadrado":
 				self.resultado = cifra1**cifra2
 
@@ -118,17 +121,21 @@ class App:
 			self.operacion = "raiz"
 			num1 = float(displayValue.get())
 			self.resultado = math.sqrt(num1)
-			print(str(self.resultado) + "prueba")
+			print(self.resultado)
+			self.reset_pantalla = True
 			displayValue.set(self.resultado)
 
 
 		def resultado():
-			elementos.append(float(displayValue.get()))
-			calcularesultado()
-			print(elementos)
-			displayValue.set(self.resultado)
-			elementos[:] = []
-			
+			try:
+				elementos.append(float(displayValue.get()))
+				calcularesultado()
+				print(elementos)
+				displayValue.set(self.resultado)
+				elementos[:] = []
+			except IndexError:
+				displayValue.set(self.resultado)
+				elementos[:] = []
 
 		# --------------
 		# --- Visual ---
