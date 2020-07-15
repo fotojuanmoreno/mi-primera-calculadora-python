@@ -1,7 +1,6 @@
 from tkinter import *
-from tkinter import messagebox
+import re
 
-#PRUEBA UN BUCLE WHILE PARA MIENTRAS SEA MENOS QUE TRES AÑADA Y SINO SUME O LO QUE DIGA LA OPERACION
 
 class App:
 	def __init__(self, root):
@@ -27,8 +26,17 @@ class App:
 				print(num)
 				self.reset_pantalla = False
 			else:
-				displayValue.set(displayValue.get() + num)
-				print(num)
+				if num != ".":
+					displayValue.set(displayValue.get() + num)
+					print(num)
+				else:
+					valor = displayValue.get()
+					match = re.match("[^@]+\.", valor)
+					if match:
+						displayValue.set(displayValue.get())
+					else:
+						displayValue.set(displayValue.get() + num)
+						print(num)
 
 		def clean():
 			displayValue.set("0")
@@ -104,9 +112,6 @@ class App:
 			self.operacion = "cuadrado"
 			preparacuentas()
 
-		
-
-
 		def resultado():
 			elementos.append(float(displayValue.get()))
 			calcularesultado()
@@ -114,9 +119,6 @@ class App:
 			displayValue.set(self.resultado)
 			elementos[:] = []
 			
-
-
-
 
 		# --------------
 		# --- Visual ---
@@ -186,7 +188,7 @@ class App:
 		button_suma.grid (row = 4, column = 3)
 
 		#Fifth line
-		button_punto = Button(body, text = "·", width = 4, height = 1, font = "Helvetica")
+		button_punto = Button(body, text = "·", width = 4, height = 1, font = "Helvetica", command = lambda:insert_value("."))
 		button_punto.grid (row = 5, column = 0)
 
 		button_0 = Button(body, text = "0", width = 4, height = 1, font = "Helvetica", command = lambda:insert_value("0"))
@@ -194,15 +196,6 @@ class App:
 
 		button_resultado = Button(body, text = "=", width = 12, height = 1, font = "Helvetica", command = lambda:resultado())
 		button_resultado.grid (row = 5, column = 2, columnspan = 2)
-
-
-
-
-
-
-
-
-
 
 
 
